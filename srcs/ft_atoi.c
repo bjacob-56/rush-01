@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 20:01:57 by smorel            #+#    #+#             */
-/*   Updated: 2021/04/12 19:15:32 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 20:57:30 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ long long int	ft_atoi(const char *nptr)
 	return (signe * val);
 }
 
-
 int	ft_atoi_read(void)
 {
-	int	val;
-	char buf[2];
+	int		val;
+	char	buf[2];
 
 	val = 0;
 	buf[0] = '0';
