@@ -23,7 +23,7 @@ static int	check_nbr(char **map_origin, int i, int j)
 		&& height == map_origin[i - 1][j - 1]);
 }
 
-static int	get_new_size(t_rush *rush, int i, int j)
+static void	get_new_size(t_rush *rush, int i, int j)
 {
 	int	val;
 	int	val1;
