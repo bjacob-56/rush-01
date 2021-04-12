@@ -1,58 +1,131 @@
 #include "rush01.h"
 
-static int	glen(char *ptr)
+static char	*gnl_rea(char *ptr, int size)
 {
-	int	i;
-
-	i = 0;
-	while (ptr[i])
-		i++;
-	return (i);
-}
-
-static char	*grea(char *pt, int size)
-{
-	char	*new;
+	char	*nptr;
 	int		i;
 
-	i = 0;
-	new = malloc(size + 1);
-	while (size-- > 1 && pt[i])
+	nptr = (char *)malloc(sizeof(char) * size);
+	if (!nptr)
 	{
-		new[i] = pt[i];
+		gnl_free(&ptr);
+		return (NULL);
+	}
+	i = 0;
+	while (size-- > 1 && ptr[i])
+	{
+		nptr[i] = ptr[i];
 		i++;
 	}
-	new[i++] = 0;
-	new[i] = 0;
-	free(pt);
-	pt = NULL;
-	return (new);
+	nptr[i] = '\0';
+	gnl_free(&ptr);
+	return (nptr);
 }
 
-int	get_next_line(char **line)
+static int	check_kept(char *to_keep, char **line)
 {
-	char	buf[1];
-	int		l;
-	int		ret;
+	char	*kept;
+	char	*tmp;
+	int		in_line;
 
-	*line = malloc(1);
-	**line = 0;
-	l = 2;
-	while (l > 1)
+	kept = to_keep;
+	*line = gnl_rea(*line, glen(to_keep, '\n') + 1);
+	if (!(*line))
+		return (-1);
+	tmp = *line;
+	in_line = 2;
+	while (*kept)
 	{
-		*line = grea(*line, glen(*line) + 1);
-		ret = read(0, buf, 1);
-		if (ret)
+		if (*kept == '\n' && in_line == 2)
 		{
-			if (buf[0] == '\n')
-				l = 1;
-			else
-				(*line)[glen(*line)] = buf[0];
+			in_line = 1;
+			*tmp = '\0';
+			kept++;
+			tmp = to_keep;
 		}
-		else
-		{
-			l =0;
-		}
+		*tmp++ = *kept++;
 	}
-	return (l);
+	*tmp = '\0';
+	return (in_line);
+}
+
+static int	clean_buf(char **buf, char **to_keep, char **line, int ret)
+{
+	char	*tmp;
+	char	*buffer;
+	int		in_line;
+
+	in_line = 2;
+	buffer = *buf;
+	*line = gnl_rea(*line, glen(*line, '\0') + ret + 1);
+	*to_keep = gnl_rea(*to_keep, glen(*to_keep, '\0') + ret + 1);
+	if (!(*line) || !(*to_keep))
+		return (-1);
+	tmp = &(*line)[glen(*line, '\0')];
+	while (ret--)
+	{
+		if (*buffer == '\n' && in_line == 2)
+		{
+			*tmp = '\0';
+			buffer++;
+			in_line = 1;
+			tmp = *to_keep;
+		}
+		*tmp++ = *buffer++;
+	}
+	*tmp = '\0';
+	return (in_line);
+}
+
+static int	gnl_algo(int in_line, int fd, char **to_keep, char **line)
+{
+	int			ret;
+	char		*buf;
+
+	while (in_line > 1)
+	{
+		buf = (char *)malloc(sizeof(char) * (1 + 1));
+		if (!buf)
+			return (-1);
+		ret = read(fd, buf, 1);
+		if (ret < 0)
+			return (-1);
+		buf[ret] = '\0';
+		if (ret < 1)
+			in_line = ret;
+		else
+			in_line = clean_buf(&buf, to_keep, line, ret);
+		gnl_free(&buf);
+	}
+	*line = gnl_rea(*line, glen(*line, '\0') + 1);
+	if (!(*line))
+		return (-1);
+	return (in_line);
+}
+
+int	get_next_line(char **line, int len)
+{
+	static char	*to_keep;
+	int			in_line;
+
+	*line = (char *)malloc(len + 1);
+	if (!(*line))
+		return (-1);
+	**line = '\0';
+	in_line = 2;
+	if (to_keep)
+		in_line = check_kept(to_keep, line);
+	else
+	{
+		to_keep = (char *)malloc(sizeof(char) * 1);
+		if (!to_keep)
+			return (-1);
+		*to_keep = '\0';
+	}
+	in_line = gnl_algo(in_line, 0, &to_keep, line);
+	if (in_line != 0 && in_line != 1)
+		return (-1);
+	if (!in_line)
+		gnl_free(&to_keep);
+	return (in_line);
 }
