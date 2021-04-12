@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel_2d.c                                     :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smorel <smorel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 20:01:57 by smorel            #+#    #+#             */
-/*   Updated: 2020/12/05 09:53:09 by smorel           ###   ########lyon.fr   */
+/*   Updated: 2020/12/05 09:09:55 by smorel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "rush01.h"
 
-char	**ft_strdel_2d(char **t)
+long long int	ft_atoi(const char *nptr)
 {
-	int	i;
+	long long int	val;
+	int				signe;
 
-	i = -1;
-	while (t[++i])
-		;
-	while (i--)
+	signe = 1;
+	val = 0;
+	while (*nptr == ' ' || *nptr == '\t' || *nptr == '\f' || *nptr == '\n' \
+		 || *nptr == '\r' || *nptr == '\v')
+		nptr++;
+	if (*nptr == '-' || *nptr == '+')
 	{
-		free(t[i]);
-		t[i] = NULL;
+		if (*nptr == '-')
+			signe = -signe;
+		nptr++;
 	}
-	free(t);
-	return (NULL);
+	while ('0' <= *nptr && *nptr <= '9')
+		val = 10 * val + (*nptr++ - '0');
+	return (signe * val);
 }
