@@ -13,14 +13,15 @@ static int	fill_map(t_rush *r)
 	char	*reading;
 
 	i = -1;
-	ret = get_next_line(STDIN_FILENO, &reading) == -1;
+	ret = get_next_line(STDIN_FILENO, &reading);
 	while (ret)
 	{
 		if (ret == -1)
 			return (error_msg());
+		dprintf(1, "%s\n", reading);
 		r->map_origin[++i] = reading;
 		r->map_modif[i] = ft_strdup(reading);
-		ret = get_next_line(STDIN_FILENO, &reading) == -1;
+		ret = get_next_line(STDIN_FILENO, &reading);
 	}
 	return (0);
 }
@@ -32,9 +33,11 @@ int	pars(t_rush *r)
 	if (get_next_line(STDIN_FILENO, &reading) == -1)
 		return (error_msg());
 	r->size = ft_atoi(reading);
+	free(reading);
 	if (get_next_line(STDIN_FILENO, &reading) == -1)
 		return (error_msg());
 	r->c = reading[0];
+	free(reading);
 	r->map_origin = (char **)malloc(sizeof(char *) * r->size);
 	r->map_modif = (char **)malloc(sizeof(char *) * r->size);
 	return (fill_map(r));

@@ -1,5 +1,4 @@
 #include "rush01.h"
-#include <stdio.h>
 
 void	init_struct(t_rush *t)
 {
@@ -18,7 +17,6 @@ int	main(void)
 
 	init_struct(&r);
 	pars(&r);
-printf("%d\n", r.size);
 	algo(&r);
 	return (0);
 }
