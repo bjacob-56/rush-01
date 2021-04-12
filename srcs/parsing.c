@@ -18,11 +18,12 @@ static int	fill_map(t_rush *r)
 	{
 		if (ret == -1)
 			return (error_msg());
-		dprintf(1, "%s\n", reading);
 		r->map_origin[++i] = reading;
 		r->map_modif[i] = ft_strdup(reading);
 		ret = get_next_line(STDIN_FILENO, &reading);
 	}
+		r->map_origin[++i] = reading;
+		r->map_modif[i] = ft_strdup(reading);
 	return (0);
 }
 

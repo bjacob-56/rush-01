@@ -17,6 +17,6 @@ int	main(void)
 
 	init_struct(&r);
 	pars(&r);
-	algo(&r);
+	// algo(&r);
 	return (0);
 }
