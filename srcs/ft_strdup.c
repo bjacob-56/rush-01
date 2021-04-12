@@ -6,7 +6,7 @@ char	*ft_strdup(const char *s1)
 	int		n;
 
 	n = ft_strlen(s1);
-	new = (char *)ft_memalloc(n + 1);
+	new = (char *)malloc(n + 1);
 	if (!new)
 		return (NULL);
 	return (ft_strncpy(new, s1, n));

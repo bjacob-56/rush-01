@@ -14,9 +14,26 @@ void	init_struct(t_rush *t)
 int	main(void)
 {
 	t_rush	r;
+	char	*reading;
+	int		i;
+	int		ret;
 
 	init_struct(&r);
-	pars(&r);
+	get_next_line(STDIN_FILENO, &reading);
+	r.size = ft_atoi(reading);
+	free(reading);
+	get_next_line(STDIN_FILENO, &reading);
+	r.c = reading[0];
+	free(reading);
+	r.map_origin = (char **)malloc(sizeof(char *) * r.size);
+	r.map_modif = (int **)malloc(sizeof(int *) * r.size);
+	i = -1;
+	while (++i < r.size)
+	{
+		ret = get_next_line(STDIN_FILENO, &reading);
+		r.map_origin[i] = reading;
+		r.map_modif[i] = (int *)malloc(sizeof(int) * r.size);
+	}
 	algo(&r);
 	return (0);
 }
