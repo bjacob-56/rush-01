@@ -25,29 +25,26 @@ static int	check_nbr(char **map_origin, int i, int j)
 
 static void	get_new_size(t_rush *rush, int i, int j)
 {
-	int	val;
-	int	val1;
-	int	val2;
-	int	val3;
+	int	val[4];
 
-	val1 = rush->map_modif[i - 1][j];
-	val2 = rush->map_modif[i][j - 1];
-	val3 = rush->map_modif[i - 1][j - 1];
-	if (val1 <= val2)
+	val[1] = rush->map_modif[i - 1][j];
+	val[2] = rush->map_modif[i][j - 1];
+	val[3] = rush->map_modif[i - 1][j - 1];
+	if (val[1] <= val[2])
 	{
-		if (val1 <= val3)
-			val = val1 + 1;
+		if (val[1] <= val[3])
+			val[0] = val[1] + 1;
 		else
-			val = val3 + 1;
+			val[0] = val[3] + 1;
 	}
-	else if (val2 <= val3)
-		val = val2 + 1;
+	else if (val[2] <= val[3])
+		val[0] = val[2] + 1;
 	else
-		val = val3 + 1;
-	rush->map_modif[i][j] = val;
-	if (val > rush->max)
+		val[0] = val[3] + 1;
+	rush->map_modif[i][j] = val[0];
+	if (val[0] > rush->max)
 	{
-		rush->max = val;
+		rush->max = val[0];
 		rush->i_max = i;
 		rush->j_max = j;
 	}
@@ -122,6 +119,4 @@ void	algo(t_rush *rush)
 	place_camp(rush, rush->map_origin, rush->c);
 	ft_strdel_2d_char(rush->map_origin, rush->size, 1);
 	ft_strdel_2d_int(rush->map_modif, rush->size);
-	// ft_strdel_2d(rush->map_origin, rush->size, 0);
-	// ft_strdel_2d_bis(rush->map_modif, rush->size, 1);
 }
