@@ -15,7 +15,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_rush;
+typedef struct s_rush
 {
 	int	size;
 	char	c;
@@ -24,7 +24,7 @@ typedef struct s_rush;
 	int	max;
 	int	i_max;	// line
 	int	j_max;	// column
-} t_rush;
+}	t_rush;
 
 
 int		get_next_line(int fd, char **line);
