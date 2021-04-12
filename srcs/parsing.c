@@ -19,11 +19,11 @@ static int	fill_map(t_rush *r)
 		if (ret == -1)
 			return (error_msg());
 		r->map_origin[++i] = reading;
-		r->map_modif[i] = ft_strdup(reading);
+		r->map_modif[i] = (int *)malloc(sizeof(int) * r->size);
 		ret = get_next_line(STDIN_FILENO, &reading);
 	}
 	r->map_origin[++i] = reading;
-	r->map_modif[i] = ft_strdup(reading);
+	r->map_modif[i] = (int *)malloc(sizeof(int) * r->size);
 	return (0);
 }
 
@@ -40,6 +40,6 @@ int	pars(t_rush *r)
 	r->c = reading[0];
 	free(reading);
 	r->map_origin = (char **)malloc(sizeof(char *) * r->size);
-	r->map_modif = (char **)malloc(sizeof(char *) * r->size);
+	r->map_modif = (int **)malloc(sizeof(int *) * r->size);
 	return (fill_map(r));
 }

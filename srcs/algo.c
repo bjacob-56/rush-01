@@ -119,6 +119,8 @@ void	algo(t_rush *rush)
 		}
 	}
 	place_camp(rush, rush->map_origin, rush->c);
-	ft_strdel_2d(rush->map_origin, rush->size, 1);
-	ft_strdel_2d(rush->map_modif, rush->size, 0);
+	ft_strdel_2d_char(rush->map_origin, rush->size, 1);
+	ft_strdel_2d_int(rush->map_modif, rush->size);
+	// ft_strdel_2d(rush->map_origin, rush->size, 0);
+	// ft_strdel_2d_bis(rush->map_modif, rush->size, 1);
 }
