@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:15:27 by smorel            #+#    #+#             */
-/*   Updated: 2021/04/12 11:08:21 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 11:47:28 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,10 @@ char			*ft_strdup(const char *s1);
 char			*ft_strncpy(char *dst, const char *src, size_t len);
 size_t			ft_strlen(const char *s);
 int				pars(t_rush *r);
+
+char	**ft_strdel_2d(char **t, int size, int print);
+
+void	algo(t_struct *rush);
+
 
 #endif
