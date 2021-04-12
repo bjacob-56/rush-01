@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smorel <smorel@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 20:01:57 by smorel            #+#    #+#             */
-/*   Updated: 2020/12/05 09:09:55 by smorel           ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 19:15:32 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,20 @@ long long int	ft_atoi(const char *nptr)
 	while ('0' <= *nptr && *nptr <= '9')
 		val = 10 * val + (*nptr++ - '0');
 	return (signe * val);
+}
+
+
+int	ft_atoi_read(void)
+{
+	int	val;
+	char buf[2];
+
+	val = 0;
+	buf[0] = '0';
+	while (buf[0] != '\n')
+	{
+		val = 10 * val + (buf[0] - '0');
+		read(0, buf, 1);
+	}
+	return (val);
 }

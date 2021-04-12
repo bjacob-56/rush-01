@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:15:27 by smorel            #+#    #+#             */
-/*   Updated: 2021/04/12 15:01:27 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 19:15:51 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ typedef struct s_rush
 int				get_next_line(char **line);
 int				glen(char *str, char c);
 void			gnl_free(char **str);
+
 long long int	ft_atoi(const char *nptr);
+int				ft_atoi_read(void);
+
 void			*ft_memalloc(size_t size);
 char			*ft_strdup(const char *s1);
 char			*ft_strncpy(char *dst, const char *src, size_t len);
