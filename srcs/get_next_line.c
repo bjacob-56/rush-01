@@ -103,31 +103,29 @@ static int	gnl_algo(int in_line, int fd, char **to_keep, char **line)
 	return (in_line);
 }
 
-int	get_next_line(int fd, char **line)
+int	get_next_line(char **line)
 {
-	static char	*to_keep[4096];
+	static char	*to_keep;
 	int			in_line;
 
-	if (1000 < 1 || !line || read(fd, to_keep, 0) < 0)
-		return (-1);
 	*line = (char *)malloc(sizeof(char) * 1);
 	if (!(*line))
 		return (-1);
 	**line = '\0';
 	in_line = 2;
-	if (to_keep[fd])
-		in_line = check_kept(to_keep[fd], line);
+	if (to_keep)
+		in_line = check_kept(to_keep, line);
 	else
 	{
-		to_keep[fd] = (char *)malloc(sizeof(char) * 1);
-		if (!to_keep[fd])
+		to_keep = (char *)malloc(sizeof(char) * 1);
+		if (!to_keep)
 			return (-1);
-		*to_keep[fd] = '\0';
+		*to_keep = '\0';
 	}
-	in_line = gnl_algo(in_line, fd, &to_keep[fd], line);
+	in_line = gnl_algo(in_line, 0, &to_keep, line);
 	if (in_line != 0 && in_line != 1)
 		return (-1);
 	if (!in_line)
-		gnl_free(&to_keep[fd]);
+		gnl_free(&to_keep);
 	return (in_line);
 }
