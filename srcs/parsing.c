@@ -13,17 +13,14 @@ static int	fill_map(t_rush *r)
 	char	*reading;
 
 	i = -1;
-	ret = get_next_line(STDIN_FILENO, &reading);
-	while (ret)
+	while (++i < r->size)
 	{
+		ret = get_next_line(STDIN_FILENO, &reading);
 		if (ret == -1)
 			return (error_msg());
-		r->map_origin[++i] = reading;
+		r->map_origin[i] = reading;
 		r->map_modif[i] = (int *)malloc(sizeof(int) * r->size);
-		ret = get_next_line(STDIN_FILENO, &reading);
 	}
-	r->map_origin[++i] = reading;
-	r->map_modif[i] = (int *)malloc(sizeof(int) * r->size);
 	return (0);
 }
 
