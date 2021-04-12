@@ -10,6 +10,10 @@ $(SRC_DIR)ft_strlen.c \
 $(SRC_DIR)ft_strncpy.c \
 $(SRC_DIR)get_next_line.c \
 $(SRC_DIR)get_next_line_utils.c \
+<<<<<<< HEAD
+=======
+$(SRC_DIR)gnl.c \
+>>>>>>> 944a28ce5ff7c921020b29697d310200052b77ff
 $(SRC_DIR)main.c
 
 OBJ		:= $(SRC:$(SRC_DIR)%.c=%.o)
