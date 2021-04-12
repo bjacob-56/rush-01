@@ -11,16 +11,6 @@ void	init_struct(t_rush *t)
 	t->size = 0;
 }
 
-// char *gnl(int len)
-// {
-// 	char *line;
-
-// 	line = malloc(len + 1);
-// 	read(0, line, len + 1);
-// 	line[len] = 0;
-// 	return (line);
-// }
-
 int	main(void)
 {
 	t_rush	r;
