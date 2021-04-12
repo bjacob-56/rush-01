@@ -27,7 +27,7 @@ typedef struct s_rush
 	int		j_max;
 }	t_rush;
 
-int				get_next_line(char **line, int len);
+int				get_next_line(int fd, char **line);
 int				glen(char *str, char c);
 void			gnl_free(char **str);
 long long int	ft_atoi(const char *nptr);
@@ -35,7 +35,6 @@ void			*ft_memalloc(size_t size);
 char			*ft_strdup(const char *s1);
 char			*ft_strncpy(char *dst, const char *src, size_t len);
 size_t			ft_strlen(const char *s);
-char			*gnl(int len);
 
 char			**ft_strdel_2d_char(char **t, int size, int print);
 int				**ft_strdel_2d_int(int **t, int size);

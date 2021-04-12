@@ -10,7 +10,6 @@ $(SRC_DIR)ft_strlen.c \
 $(SRC_DIR)ft_strncpy.c \
 $(SRC_DIR)get_next_line.c \
 $(SRC_DIR)get_next_line_utils.c \
-$(SRC_DIR)gnl.c \
 $(SRC_DIR)main.c
 
 OBJ		:= $(SRC:$(SRC_DIR)%.c=%.o)
@@ -19,7 +18,7 @@ INC	:= $(INC_DIR)rush01.h
 CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror
 INCLUDE	:= -Iincludes
-LDFLAGS	:=  -g3 -fsanitize=address
+# LDFLAGS	:=  -g3 -fsanitize=address
 
 .PHONY: all clean fclean re
 
