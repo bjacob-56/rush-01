@@ -11,12 +11,12 @@ void	init_struct(t_rush *t)
 	t->size = 0;
 }
 
-int	main()
+int	main(void)
 {
 	t_rush	r;
 
 	init_struct(&r);
 	pars(&r);
-	algo(&r);
+	// algo(&r);
 	return (0);
 }

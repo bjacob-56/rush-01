@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "rush01.h"
 
 long long int	ft_atoi(const char *nptr)
 {
