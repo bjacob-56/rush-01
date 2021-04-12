@@ -11,7 +11,7 @@ INC	:= $(INC_DIR)rush01.h
 CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror
 INCLUDE	:= -Iincludes
-LDFLAGS	:=  -g3 -fsanitize=address
+# LDFLAGS	:=  -g3 -fsanitize=address
 
 
 .PHONY: all clean fclean re

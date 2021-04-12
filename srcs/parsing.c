@@ -22,8 +22,8 @@ static int	fill_map(t_rush *r)
 		r->map_modif[i] = ft_strdup(reading);
 		ret = get_next_line(STDIN_FILENO, &reading);
 	}
-		r->map_origin[++i] = reading;
-		r->map_modif[i] = ft_strdup(reading);
+	r->map_origin[++i] = reading;
+	r->map_modif[i] = ft_strdup(reading);
 	return (0);
 }
 
