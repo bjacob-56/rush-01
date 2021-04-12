@@ -18,10 +18,10 @@ int	main(void)
 	int		i;
 
 	init_struct(&r);
-	get_next_line(&reading);
+	get_next_line(&reading, 10);
 	r.size = ft_atoi(reading);
 	free(reading);
-	get_next_line(&reading);
+	get_next_line(&reading, 2);
 	r.c = reading[0];
 	free(reading);
 	r.map_origin = (char **)malloc(sizeof(char *) * r.size);
@@ -29,8 +29,7 @@ int	main(void)
 	i = -1;
 	while (++i < r.size)
 	{
-		get_next_line(&reading);
-		r.map_origin[i] = reading;
+		r.map_origin[i] = gnl(r.size);
 		r.map_modif[i] = (int *)malloc(sizeof(int) * r.size);
 	}
 	algo(&r);

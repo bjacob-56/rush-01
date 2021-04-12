@@ -84,10 +84,10 @@ static int	gnl_algo(int in_line, int fd, char **to_keep, char **line)
 
 	while (in_line > 1)
 	{
-		buf = (char *)malloc(sizeof(char) * (1000 + 1));
+		buf = (char *)malloc(sizeof(char) * (1 + 1));
 		if (!buf)
 			return (-1);
-		ret = read(fd, buf, 1000);
+		ret = read(fd, buf, 1);
 		if (ret < 0)
 			return (-1);
 		buf[ret] = '\0';
@@ -103,12 +103,12 @@ static int	gnl_algo(int in_line, int fd, char **to_keep, char **line)
 	return (in_line);
 }
 
-int	get_next_line(char **line)
+int	get_next_line(char **line, int len)
 {
 	static char	*to_keep;
 	int			in_line;
 
-	*line = (char *)malloc(sizeof(char) * 1);
+	*line = (char *)malloc(len + 1);
 	if (!(*line))
 		return (-1);
 	**line = '\0';
