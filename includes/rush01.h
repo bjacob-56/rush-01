@@ -23,8 +23,8 @@ typedef struct s_rush
 	char	**map_origin;
 	char	**map_modif;
 	int		max;
-	int		i_max;	// line
-	int		j_max;	// column
+	int		i_max;
+	int		j_max;
 }	t_rush;
 
 int				get_next_line(int fd, char **line);

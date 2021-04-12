@@ -44,7 +44,6 @@ static void	get_new_size(t_rush *rush, int i, int j)
 	else
 		val = val3 + 1;
 	rush->map_modif[i][j] = val;
-
 	if (val > rush->max)
 	{
 		rush->max = val;
@@ -67,7 +66,6 @@ static	void	place_camp(t_rush *rush, char **map_o, char c)
 	}
 }
 
-
 //////////////////////////////////////
 //////////////////////////////////////
 // static char *to_up_print(char *str, int size)
@@ -79,7 +77,6 @@ static	void	place_camp(t_rush *rush, char **map_o, char c)
 // 		str[i] = str[i] + '0';
 // 	return str;
 // }
-
 
 // char	**ft_strdel_2d_bis(char **t, int size, int print)
 // {
@@ -103,7 +100,6 @@ static	void	place_camp(t_rush *rush, char **map_o, char c)
 // }
 //////////////////////////////////////
 //////////////////////////////////////
-
 
 void	algo(t_rush *rush)
 {
