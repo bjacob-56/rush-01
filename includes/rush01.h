@@ -40,5 +40,4 @@ char			**ft_strdel_2d(char **t, int size, int print);
 
 void			algo(t_rush *rush);
 
-
 #endif

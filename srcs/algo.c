@@ -23,7 +23,7 @@ static int	check_nbr(char **map_origin, int i, int j)
 		&& height == map_origin[i - 1][j - 1]);
 }
 
-static int	 get_new_size(t_rush *rush, int i, int j)
+static int	get_new_size(t_rush *rush, int i, int j)
 {
 	int	val;
 	int	val1;
@@ -31,8 +31,8 @@ static int	 get_new_size(t_rush *rush, int i, int j)
 	int	val3;
 
 	val1 = rush->map_modif[i - 1][j];
-	val2 = rush->map_modif[i][j - 1]
-	val3 = rush->map_modif[i - 1][j - 1]
+	val2 = rush->map_modif[i][j - 1];
+	val3 = rush->map_modif[i - 1][j - 1];
 	if (val1 <= val2)
 	{
 		if (val1 <= val3)
@@ -68,7 +68,7 @@ static	void	place_camp(t_rush *rush, char **map_o, char c)
 
 void	algo(t_rush *rush)
 {
-	int i;
+	int	i;
 	int	j;
 
 	i = -1;
