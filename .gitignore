@@ -1,0 +1,15 @@
+# C/CPP Binaries
+rush
+obj/
+*.out
+*.o
+
+# Runtime data
+*.db
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/*
+!.vscode/c_cpp_properties.json
