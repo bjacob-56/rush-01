@@ -56,11 +56,11 @@ static	void	place_camp(t_rush *rush, char **map_o, char c)
 	{
 		j = -1;
 		while (++j < rush->max)
-			map_o[i_max - i][j_max - j] = c;
+			map_o[rush->i_max - i][rush->j_max - j] = c;
 	}
 }
 
-void	algo(t_struct *rush)
+void	algo(t_rush *rush)
 {
 	int i;
 	int	j;

@@ -20,6 +20,7 @@ static int	fill_map(t_rush *r)
 			return (error_msg());
 		r->map_origin[++i] = reading;
 		r->map_modif[i] = ft_strdup(reading);
+		ret = get_next_line(STDIN_FILENO, &reading) == -1;
 	}
 	return (0);
 }

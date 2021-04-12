@@ -31,15 +31,14 @@ int				glen(char *str, char c);
 void			gnl_free(char **str);
 long long int	ft_atoi(const char *nptr);
 void			*ft_memalloc(size_t size);
-char			**ft_strdel_2d(char **t);
 char			*ft_strdup(const char *s1);
 char			*ft_strncpy(char *dst, const char *src, size_t len);
 size_t			ft_strlen(const char *s);
 int				pars(t_rush *r);
 
-char	**ft_strdel_2d(char **t, int size, int print);
+char			**ft_strdel_2d(char **t, int size, int print);
 
-void	algo(t_struct *rush);
+void			algo(t_rush *rush);
 
 
 #endif
