@@ -37,7 +37,8 @@ static void	get_new_size(t_rush *rush, int i, int j)
 	{
 		if (val1 <= val3)
 			val = val1 + 1;
-		val = val3 + 1;
+		else
+			val = val3 + 1;
 	}
 	else if (val2 <= val3)
 		val = val2 + 1;
