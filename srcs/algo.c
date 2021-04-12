@@ -25,7 +25,7 @@ static void	check_and_manage_nbr(t_rush *rush, int i, int j)
 		else if (rush->map_modif[i][j - 1] <= rush->map_modif[i - 1][j - 1])
 			rush->map_modif[i][j] = rush->map_modif[i][j - 1] + 1;
 		else
-			rush->map_modif[i][j] = rush->map_modif[i][j - 1] + 1;
+			rush->map_modif[i][j] = rush->map_modif[i - 1][j - 1] + 1;
 		if (rush->map_modif[i][j] > rush->max)
 		{
 			rush->max = rush->map_modif[i][j];
