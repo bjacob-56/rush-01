@@ -2,8 +2,7 @@ SRC_DIR	:= srcs/
 INC_DIR	:= includes/
 
 NAME	:= rush
-SRC		:= $(SRC_DIR)algo.c \
-$(SRC_DIR)get_next_line.c \
+SRC		:= $(SRC_DIR)get_next_line.c \
 $(SRC_DIR)main.c
 
 OBJ		:= $(SRC:$(SRC_DIR)%.c=%.o)
