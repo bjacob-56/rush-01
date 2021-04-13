@@ -15,7 +15,7 @@ static int	ft_atoi_read(void)
 	return (val);
 }
 
-void	init_struct(t_rush *t)
+static void	init_struct(t_rush *t)
 {
 	t->c = 0;
 	t->i_max = 0;
