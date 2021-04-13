@@ -1,5 +1,21 @@
 #include "rush01.h"
 
+static int	ft_atoi_read(void)
+{
+	int		val;
+	char	buf[2];
+
+	val = 0;
+	buf[0] = '0';
+	while (buf[0] != '\n')
+	{
+		val = 10 * val + (buf[0] - '0');
+		read(0, buf, 1);
+	}
+	return (val);
+}
+
+
 void	init_struct(t_rush *t)
 {
 	t->c = 0;

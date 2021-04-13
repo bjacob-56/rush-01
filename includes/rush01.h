@@ -28,13 +28,8 @@ typedef struct s_rush
 }	t_rush;
 
 int				get_next_line(char **line, int len);
-
-long long int	ft_atoi(const char *nptr);
-int				ft_atoi_read(void);
-
 char			**ft_strdel_2d_char(char **t, int size);
 int				**ft_strdel_2d_int(int **t, int size);
-
 void			algo(t_rush *rush);
 
 #endif
