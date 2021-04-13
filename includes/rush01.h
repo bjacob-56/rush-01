@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:15:27 by smorel            #+#    #+#             */
-/*   Updated: 2021/04/13 10:26:28 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2021/04/13 10:50:11 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int				get_next_line(char **line, int len);
 long long int	ft_atoi(const char *nptr);
 int				ft_atoi_read(void);
 
-char			**ft_strdel_2d_char(char **t, int size, int print);
+char			**ft_strdel_2d_char(char **t, int size);
 int				**ft_strdel_2d_int(int **t, int size);
 
 void			algo(t_rush *rush);

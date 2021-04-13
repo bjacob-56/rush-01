@@ -47,6 +47,7 @@ static int	clean_buf(char **buf, char **to_keep, char **line, int ret)
 	{
 		if (*buffer == '\n' && in_line == 2)
 		{
+			*tmp++ = '\n';
 			*tmp = '\0';
 			buffer++;
 			in_line = 1;
@@ -65,7 +66,7 @@ static int	gnl_algo(int in_line, int len, char **to_keep, char **line)
 
 	while (in_line > 1)
 	{
-		buf = (char *)malloc(sizeof(char) * (len +1 + 1));
+		buf = malloc(len + 2);
 		ret = read(0, buf, len +1);
 		buf[ret] = '\0';
 		if (ret < 1)
@@ -82,14 +83,14 @@ int	get_next_line(char **line, int len)
 	static char	*to_keep;
 	int			in_line;
 
-	*line = (char *)malloc(len + 1);
+	*line = malloc(len + 2);
 	**line = '\0';
 	in_line = 2;
 	if (to_keep)
 		in_line = check_kept(to_keep, line);
 	else
 	{
-		to_keep = (char *)malloc(len + 2);
+		to_keep = malloc(len + 2);
 		*to_keep = '\0';
 	}
 	in_line = gnl_algo(in_line, len, &to_keep, line);

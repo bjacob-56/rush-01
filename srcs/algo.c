@@ -86,24 +86,26 @@ static void	check_and_manage_nbr(t_rush *rush, int i, int j)
 // 	}
 // }
 
-static	void	place_camp(t_rush *rush, char **map_o, char c)
-{
-	int	i;
-	int	j;
+// static	void	place_camp(t_rush *rush, char **map_o, char c)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = -1;
-	while (++i < rush->max)
-	{
-		j = -1;
-		while (++j < rush->max)
-			map_o[rush->i_max - i][rush->j_max - j] = c;
-	}
-}
+// 	i = -1;
+// 	while (++i < rush->max)
+// 	{
+// 		j = -1;
+// 		while (++j < rush->max)
+// 			map_o[rush->i_max - i][rush->j_max - j] = c;
+// 	}
+// }
 
 void	algo(t_rush *rush)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	c;
+	char	**map_o;
 
 	i = -1;
 	while (++i < rush->size)
@@ -112,7 +114,15 @@ void	algo(t_rush *rush)
 		while (++j < rush->size)
 			check_and_manage_nbr(rush, i, j);
 	}
-	place_camp(rush, rush->map_origin, rush->c);
-	ft_strdel_2d_char(rush->map_origin, rush->size, 1);
+	i = -1;
+	c = rush->c;
+	map_o = rush->map_origin;
+	while (++i < rush->max)
+	{
+		j = -1;
+		while (++j < rush->max)
+			map_o[rush->i_max - i][rush->j_max - j] = c;
+	}
+	ft_strdel_2d_char(map_o, rush->size);
 	ft_strdel_2d_int(rush->map_modif, rush->size);
 }
