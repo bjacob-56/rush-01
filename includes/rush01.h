@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:15:27 by smorel            #+#    #+#             */
-/*   Updated: 2021/04/12 20:59:09 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2021/04/13 10:26:28 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ typedef struct s_rush
 }	t_rush;
 
 int				get_next_line(char **line, int len);
-int				glen(char *str, char c);
-void			gnl_free(char **str);
 
 long long int	ft_atoi(const char *nptr);
 int				ft_atoi_read(void);
