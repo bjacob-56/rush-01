@@ -34,11 +34,6 @@ void			gnl_free(char **str);
 long long int	ft_atoi(const char *nptr);
 int				ft_atoi_read(void);
 
-void			*ft_memalloc(size_t size);
-char			*ft_strdup(const char *s1);
-char			*ft_strncpy(char *dst, const char *src, size_t len);
-size_t			ft_strlen(const char *s);
-
 char			**ft_strdel_2d_char(char **t, int size, int print);
 int				**ft_strdel_2d_int(int **t, int size);
 
