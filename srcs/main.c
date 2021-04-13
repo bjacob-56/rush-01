@@ -19,9 +19,9 @@ static void	check_and_manage_nbr(char *o, int *m, t_max *data_max,
 		j = -1;
 		while (++j < s)
 		{
-			if (i != 0 && j != 0 && o[i * (s + 1) + j] == o[(i - 1) * (s + 1)
-				+ j] && o[i * (s + 1) + j] == o[i * (s + 1) + j - 1] &&
-				o[i * (s + 1) + j] == o[(i - 1) * (s + 1) + j - 1])
+			if (i != 0 && j != 0 && o[i * (s + 1) + j] == o[(i - 1) *(s + 1)
+					+ j] && o[i * (s + 1) + j] == o[i * (s + 1) + j - 1]
+					&& o[i * (s + 1) + j] == o[(i - 1) *(s + 1) + j - 1])
 			{
 				m[i * s + j] = m[(i - 1) *s + j] + 1;
 				if (m[i * s + j] > m[i * s + j - 1] + 1)
@@ -54,7 +54,7 @@ static void	algo(char *map_o, char c, int size)
 	{
 		j = -1;
 		while (++j < data_max.max)
-			map_o[(data_max.i - i) * (size + 1) + data_max.j - j] = c;
+			map_o[(data_max.i - i) *(size + 1) + data_max.j - j] = c;
 	}
 	write(1, map_o, size * (size + 1));
 	free(map_o);
