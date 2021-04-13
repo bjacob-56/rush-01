@@ -12,29 +12,29 @@
 
 #include "../includes/rush01.h"
 
-static void	check_and_manage_nbr(t_rush *rush, int i, int j)
+static void	check_and_manage_nbr(t_rush *rush, int i, int j, int size)
 {
 	if (i != 0 && j != 0
-		&& rush->map_origin[i][j] == rush->map_origin[i - 1][j]
-		&& rush->map_origin[i][j] == rush->map_origin[i][j - 1]
-		&& rush->map_origin[i][j] == rush->map_origin[i - 1][j - 1])
+		&& rush->map_origin[i * size + j] == rush->map_origin[(i - 1) * size + j]
+		&& rush->map_origin[i * size + j] == rush->map_origin[i * size + j - 1]
+		&& rush->map_origin[i * size + j] == rush->map_origin[(i - 1) * size + j - 1])
 	{
-		if (rush->map_modif[i - 1][j] <= rush->map_modif[i][j - 1] &&
-			rush->map_modif[i - 1][j] <= rush->map_modif[i - 1][j - 1])
-			rush->map_modif[i][j] = rush->map_modif[i - 1][j] + 1;
-		else if (rush->map_modif[i][j - 1] <= rush->map_modif[i - 1][j - 1])
-			rush->map_modif[i][j] = rush->map_modif[i][j - 1] + 1;
+		if (rush->map_modif[(i - 1) * size + j] <= rush->map_modif[i * size + j - 1] &&
+			rush->map_modif[(i - 1) * size + j] <= rush->map_modif[(i - 1) * size + j - 1])
+			rush->map_modif[i * size + j] = rush->map_modif[(i - 1) * size + j] + 1;
+		else if (rush->map_modif[i * size + j - 1] <= rush->map_modif[(i - 1) * size + j - 1])
+			rush->map_modif[i * size + j] = rush->map_modif[i * size + j - 1] + 1;
 		else
-			rush->map_modif[i][j] = rush->map_modif[i - 1][j - 1] + 1;
-		if (rush->map_modif[i][j] > rush->max)
+			rush->map_modif[i * size + j] = rush->map_modif[(i - 1) * size + j - 1] + 1;
+		if (rush->map_modif[i * size + j] > rush->max)
 		{
-			rush->max = rush->map_modif[i][j];
+			rush->max = rush->map_modif[i * size + j];
 			rush->i_max = i;
 			rush->j_max = j;
 		}
 	}
 	else
-		rush->map_modif[i][j] = 1;
+		rush->map_modif[i * size + j] = 1;
 }
 
 // static int	check_nbr(char **map_origin, int i, int j)
@@ -86,7 +86,7 @@ static void	check_and_manage_nbr(t_rush *rush, int i, int j)
 // 	}
 // }
 
-static	void	place_camp(t_rush *rush, char **map_o, char c)
+static	void	place_camp(t_rush *rush, char **map_o, char c, int size)
 {
 	int	i;
 	int	j;
@@ -96,7 +96,7 @@ static	void	place_camp(t_rush *rush, char **map_o, char c)
 	{
 		j = -1;
 		while (++j < rush->max)
-			map_o[rush->i_max - i][rush->j_max - j] = c;
+			map_o[(rush->i_max - i) * size + rush->j_max - j] = c;
 	}
 }
 
@@ -110,9 +110,9 @@ void	algo(t_rush *rush)
 	{
 		j = -1;
 		while (++j < rush->size)
-			check_and_manage_nbr(rush, i, j);
+			check_and_manage_nbr(rush, i, j, rush->size);
 	}
-	place_camp(rush, rush->map_origin, rush->c);
+	place_camp(rush, rush->map_origin, rush->c, rush->size);
 	ft_strdel_2d_char(rush->map_origin, rush->size, 1);
-	ft_strdel_2d_int(rush->map_modif, rush->size);
+	free(rush->map_modif);
 }
