@@ -21,7 +21,7 @@ static void	check_and_manage_nbr(char *o, int *m, t_max *data_max,
 		{
 			if (i != 0 && j != 0 && o[i * (s + 1) + j] == o[(i - 1) *(s + 1)
 					+ j] && o[i * (s + 1) + j] == o[i * (s + 1) + j - 1]
-					&& o[i * (s + 1) + j] == o[(i - 1) *(s + 1) + j - 1])
+				&& o[i * (s + 1) + j] == o[(i - 1) *(s + 1) + j - 1])
 			{
 				m[i * s + j] = m[(i - 1) *s + j] + 1;
 				if (m[i * s + j] > m[i * s + j - 1] + 1)
