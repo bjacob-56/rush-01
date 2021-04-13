@@ -1,11 +1,11 @@
 #include "rush01.h"
 
-static int	glen(char *str, char c)
+static int	glen(char *str)
 {
 	int	len;
 
 	len = 0;
-	while (str[len] != c && str[len])
+	while (str[len])
 		len++;
 	return (len);
 }
@@ -42,7 +42,7 @@ static int	clean_buf(char **buf, char **to_keep, char **line, int ret)
 
 	in_line = 2;
 	buffer = *buf;
-	tmp = &(*line)[glen(*line, '\0')];
+	tmp = *line + glen(*line);
 	while (ret--)
 	{
 		if (*buffer == '\n' && in_line == 2)
