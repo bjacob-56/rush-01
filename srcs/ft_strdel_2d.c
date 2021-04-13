@@ -11,9 +11,25 @@ char	**ft_strdel_2d_char(char **t, int size, int print)
 	{
 		if (print)
 		{
-			write(1, t + i * size, size);
+			write(1, t[i], size);
 			write(1, &c, 1);
 		}
+		free(t[i]);
+		t[i] = NULL;
+	}
+	free(t);
+	return (NULL);
+}
+
+int	**ft_strdel_2d_int(int **t, int size)
+{
+	int		i;
+
+	i = -1;
+	while (++i < size)
+	{
+		free(t[i]);
+		t[i] = NULL;
 	}
 	free(t);
 	return (NULL);
