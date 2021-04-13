@@ -29,9 +29,9 @@ static int	check_kept(char *to_keep, char **line)
 	int		in_line;
 
 	kept = to_keep;
-	*line = gnl_rea(*line, glen(to_keep, '\n') + 1);
-	if (!(*line))
-		return (-1);
+	// *line = gnl_rea(*line, glen(to_keep, '\n') + 1);
+	// if (!(*line))
+	// 	return (-1);
 	tmp = *line;
 	in_line = 2;
 	while (*kept)
@@ -57,8 +57,8 @@ static int	clean_buf(char **buf, char **to_keep, char **line, int ret)
 
 	in_line = 2;
 	buffer = *buf;
-	*line = gnl_rea(*line, glen(*line, '\0') + ret + 1);
-	*to_keep = gnl_rea(*to_keep, glen(*to_keep, '\0') + ret + 1);
+	// *line = gnl_rea(*line, glen(*line, '\0') + ret + 1);
+	// *to_keep = gnl_rea(*to_keep, glen(*to_keep, '\0') + ret + 1);
 	if (!(*line) || !(*to_keep))
 		return (-1);
 	tmp = &(*line)[glen(*line, '\0')];
@@ -77,17 +77,17 @@ static int	clean_buf(char **buf, char **to_keep, char **line, int ret)
 	return (in_line);
 }
 
-static int	gnl_algo(int in_line, int fd, char **to_keep, char **line)
+static int	gnl_algo(int in_line, int len, char **to_keep, char **line)
 {
 	int			ret;
 	char		*buf;
 
 	while (in_line > 1)
 	{
-		buf = (char *)malloc(sizeof(char) * (1000 + 1));
+		buf = (char *)malloc(sizeof(char) * (len +1 + 1));
 		if (!buf)
 			return (-1);
-		ret = read(fd, buf, 1000);
+		ret = read(0, buf, len +1);
 		if (ret < 0)
 			return (-1);
 		buf[ret] = '\0';
@@ -103,12 +103,12 @@ static int	gnl_algo(int in_line, int fd, char **to_keep, char **line)
 	return (in_line);
 }
 
-int	get_next_line(char **line)
+int	get_next_line(char **line, int len)
 {
 	static char	*to_keep;
 	int			in_line;
 
-	*line = (char *)malloc(sizeof(char) * 1);
+	*line = (char *)malloc(len + 1);
 	if (!(*line))
 		return (-1);
 	**line = '\0';
@@ -117,15 +117,15 @@ int	get_next_line(char **line)
 		in_line = check_kept(to_keep, line);
 	else
 	{
-		to_keep = (char *)malloc(sizeof(char) * 1);
+		to_keep = (char *)malloc(len + 2);
 		if (!to_keep)
 			return (-1);
 		*to_keep = '\0';
 	}
-	in_line = gnl_algo(in_line, 0, &to_keep, line);
+	in_line = gnl_algo(in_line, len, &to_keep, line);
 	if (in_line != 0 && in_line != 1)
 		return (-1);
 	if (!in_line)
-		gnl_free(&to_keep);
+		free(to_keep);
 	return (in_line);
 }

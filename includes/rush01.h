@@ -27,7 +27,7 @@ typedef struct s_rush
 	int		j_max;
 }	t_rush;
 
-int				get_next_line(char **line);
+int				get_next_line(char **line, int len);
 int				glen(char *str, char c);
 void			gnl_free(char **str);
 

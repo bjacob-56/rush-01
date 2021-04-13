@@ -26,7 +26,7 @@ int	main(void)
 	i = -1;
 	while (++i < r.size)
 	{
-		get_next_line(r.map_origin + i);
+		get_next_line(r.map_origin + i, r.size);
 		r.map_modif[i] = (int *)malloc(sizeof(int) * r.size);
 	}
 	algo(&r);
