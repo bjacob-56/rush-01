@@ -20,8 +20,8 @@ typedef struct s_rush
 {
 	int		size;
 	char	c;
-	char	**map_origin;
-	int		**map_modif;
+	char	*map_origin;
+	int		*map_modif;
 	int		max;
 	int		i_max;
 	int		j_max;
