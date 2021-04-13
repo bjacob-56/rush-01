@@ -22,11 +22,11 @@ static void	check_and_manage_nbr(char **o, int *m, t_max *data_max,
 			if (i != 0 && j != 0 && o[i][j] == o[i - 1][j] &&
 				o[i][j] == o[i][j - 1] && o[i][j] == o[i - 1][j - 1])
 			{
-				m[i * s + j] = m[(i - 1) * s + j] + 1;
+				m[i * s + j] = m[(i - 1) *s + j] + 1;
 				if (m[i * s + j] > m[i * s + j - 1] + 1)
 					m[i * s + j] = m[i * s + j - 1] + 1;
-				if (m[i * s + j] > m[(i - 1) * s + j - 1] + 1)
-					m[i * s + j] = m[(i - 1) * s + j - 1] + 1;
+				if (m[i * s + j] > m[(i - 1) *s + j - 1] + 1)
+					m[i * s + j] = m[(i - 1) *s + j - 1] + 1;
 				if (m[i * s + j] > data_max->max)
 					set_new_max(data_max, i, j);
 			}
