@@ -12,117 +12,77 @@
 
 #include "../includes/rush01.h"
 
-static void	check_and_manage_nbr(t_rush *rush, int i, int j)
+static void	set_new_max(t_max *data_max, int i, int j)
 {
-	if (i != 0 && j != 0
-		&& rush->map_origin[i][j] == rush->map_origin[i - 1][j]
-		&& rush->map_origin[i][j] == rush->map_origin[i][j - 1]
-		&& rush->map_origin[i][j] == rush->map_origin[i - 1][j - 1])
-	{
-		if (rush->map_modif[i - 1][j] <= rush->map_modif[i][j - 1] &&
-			rush->map_modif[i - 1][j] <= rush->map_modif[i - 1][j - 1])
-			rush->map_modif[i][j] = rush->map_modif[i - 1][j] + 1;
-		else if (rush->map_modif[i][j - 1] <= rush->map_modif[i - 1][j - 1])
-			rush->map_modif[i][j] = rush->map_modif[i][j - 1] + 1;
-		else
-			rush->map_modif[i][j] = rush->map_modif[i - 1][j - 1] + 1;
-		if (rush->map_modif[i][j] > rush->max)
-		{
-			rush->max = rush->map_modif[i][j];
-			rush->i_max = i;
-			rush->j_max = j;
-		}
-	}
-	else
-		rush->map_modif[i][j] = 1;
+	data_max->i = i;
+	data_max->j = j;
+	data_max->max++;
 }
 
-// static int	check_nbr(char **map_origin, int i, int j)
-// {
-// 	char	height;
-
-// 	height = map_origin[i][j];
-// 	return (i != 0 && j != 0
-// 		&& height == map_origin[i - 1][j]
-// 		&& height == map_origin[i][j - 1]
-// 		&& height == map_origin[i - 1][j - 1]);
-// }
-
-// static void	get_new_size(t_rush *rush, int i, int j)
-// {
-// 	int	val[3];
-
-// 	val[1] = rush->map_modif[i - 1][j];
-// 	val[2] = rush->map_modif[i][j - 1];
-// 	val[0] = rush->map_modif[i - 1][j - 1];
-// 	if (val[1] <= val[2] && val[1] <= val[0])
-// 		rush->map_modif[i][j] = val[1] + 1;
-// 	else if (val[2] <= val[0])
-// 		rush->map_modif[i][j] = val[2] + 1;
-// 	else
-// 		rush->map_modif[i][j] = val[0] + 1;
-// 	if (rush->map_modif[i][j] > rush->max)
-// 	{
-// 		rush->max = rush->map_modif[i][j];
-// 		rush->i_max = i;
-// 		rush->j_max = j;
-// 	}
-// }
-
-// static void	get_new_size(t_rush *rush, int i, int j)
-// {
-// 	if (rush->map_modif[i - 1][j] <= rush->map_modif[i][j - 1] &&
-// 		rush->map_modif[i - 1][j] <= rush->map_modif[i - 1][j - 1])
-// 		rush->map_modif[i][j] = rush->map_modif[i - 1][j] + 1;
-// 	else if (rush->map_modif[i][j - 1] <= rush->map_modif[i - 1][j - 1])
-// 		rush->map_modif[i][j] = rush->map_modif[i][j - 1] + 1;
-// 	else
-// 		rush->map_modif[i][j] = rush->map_modif[i][j - 1] + 1;
-// 	if (rush->map_modif[i][j] > rush->max)
-// 	{
-// 		rush->max = rush->map_modif[i][j];
-// 		rush->i_max = i;
-// 		rush->j_max = j;
-// 	}
-// }
-
-// static	void	place_camp(t_rush *rush, char **map_o, char c)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = -1;
-// 	while (++i < rush->max)
-// 	{
-// 		j = -1;
-// 		while (++j < rush->max)
-// 			map_o[rush->i_max - i][rush->j_max - j] = c;
-// 	}
-// }
-
-void	algo(t_rush *rush)
+static void	check_and_manage_nbr(char **o, int **m, t_max *data_max,
+	int size)
 {
-	int		i;
-	int		j;
-	char	c;
-	char	**map_o;
+	int	i;
+	int	j;
 
 	i = -1;
-	while (++i < rush->size)
+	while (++i < size)
 	{
 		j = -1;
-		while (++j < rush->size)
-			check_and_manage_nbr(rush, i, j);
+		while (++j < size)
+		{
+			if (i != 0 && j != 0 && o[i][j] == o[i - 1][j] &&
+				o[i][j] == o[i][j - 1] && o[i][j] == o[i - 1][j - 1])
+			{
+				m[i][j] = m[i - 1][j] + 1;
+				if (m[i][j] > m[i][j - 1] + 1)
+					m[i][j] = m[i][j - 1] + 1;
+				if (m[i][j] > m[i - 1][j - 1] + 1)
+					m[i][j] = m[i - 1][j - 1] + 1;
+				if (m[i][j] > data_max->max)
+					set_new_max(data_max, i, j);
+			}
+			else
+				m[i][j] = 1;
+		}
 	}
+}
+
+static void	place_camp(char **map_o, t_max *data_max, char c, int max)
+{
+	int	i;
+	int	j;
+	int	i_max;
+	int	j_max;
+	
+	i_max = data_max->i;
+	j_max = data_max->j;
 	i = -1;
-	c = rush->c;
-	map_o = rush->map_origin;
-	while (++i < rush->max)
+	while (++i < max)
 	{
 		j = -1;
-		while (++j < rush->max)
-			map_o[rush->i_max - i][rush->j_max - j] = c;
+		while (++j < max)
+			map_o[i_max - i][j_max - j] = c;
 	}
-	ft_strdel_2d_char(map_o, rush->size);
-	ft_strdel_2d_int(rush->map_modif, rush->size);
+}
+
+void	algo(char **map_o, int **map_m, char c, int size)
+{
+	t_max	data_max;
+	int		i;
+
+	data_max.i = 0;
+	data_max.j = 0;
+	data_max.max = 1;
+	check_and_manage_nbr(map_o, map_m, &data_max, size);
+	place_camp(map_o, &data_max, c, data_max.max);
+	i = -1;
+	while (++i < size)
+	{
+		write(1, map_o[i], size + 1);
+		free(map_o[i]);
+		free(map_m[i]);
+	}
+	free(map_o);
+	free(map_m);
 }

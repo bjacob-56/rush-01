@@ -1,49 +1,35 @@
 #include "rush01.h"
 
-static int	ft_atoi_read(void)
+static void	init_maps(char **map_o, int **map_m, int size)
 {
-	int		val;
-	char	buf[2];
+	int	i;
 
-	val = 0;
-	buf[0] = '0';
-	while (buf[0] != '\n')
+	i = -1;
+	while (++i < size)
 	{
-		val = 10 * val + (buf[0] - '0');
-		read(0, buf, 1);
+		get_next_line(map_o + i, size);
+		map_m[i] = malloc(4 * size);
 	}
-	return (val);
-}
-
-static void	init_struct(t_rush *t)
-{
-	t->c = 0;
-	t->i_max = 0;
-	t->j_max = 0;
-	t->map_modif = NULL;
-	t->map_origin = NULL;
-	t->max = 1;
-	t->size = 0;
 }
 
 int	main(void)
 {
-	t_rush	r;
+	int		size;
 	char	buffer[2];
-	int		i;
+	char	**map_o;
+	int		**map_m;
 
-	init_struct(&r);
-	r.size = ft_atoi_read();
-	read(0, &buffer, 2);
-	r.c = buffer[0];
-	r.map_origin = (char **)malloc(sizeof(char *) * r.size);
-	r.map_modif = (int **)malloc(sizeof(int *) * r.size);
-	i = -1;
-	while (++i < r.size)
+	size = 0;
+	read(0, buffer, 1);
+	while (buffer[0] != '\n')
 	{
-		get_next_line(r.map_origin + i, r.size);
-		r.map_modif[i] = (int *)malloc(sizeof(int) * r.size);
+		size = 10 * size + (buffer[0] - '0');
+		read(0, buffer, 1);
 	}
-	algo(&r);
+	read(0, &buffer, 2);
+	map_o = malloc(sizeof(char *) * size);
+	map_m = malloc(sizeof(int *) * size);
+	init_maps(map_o, map_m, size);
+	algo(map_o, map_m, buffer[0], size);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:15:27 by smorel            #+#    #+#             */
-/*   Updated: 2021/04/13 10:50:11 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2021/04/13 15:45:16 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,16 @@
 # include <unistd.h>
 # include <stdio.h>
 
-typedef struct s_rush
+typedef struct s_max
 {
-	int		size;
-	char	c;
-	char	**map_origin;
-	int		**map_modif;
+	int		i;
+	int		j;
 	int		max;
-	int		i_max;
-	int		j_max;
-}	t_rush;
+}	t_max;
 
 int				get_next_line(char **line, int len);
 char			**ft_strdel_2d_char(char **t, int size);
 int				**ft_strdel_2d_int(int **t, int size);
-void			algo(t_rush *rush);
+void			algo(char **map_o, int **map_m, char c, int size);
 
 #endif
