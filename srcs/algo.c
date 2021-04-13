@@ -12,29 +12,29 @@
 
 #include "../includes/rush01.h"
 
-static void	check_and_manage_nbr(t_rush *rush, int i, int j, int size)
+static void	check_and_manage_nbr(t_rush *r, int i, int j, int s)
 {
 	if (i != 0 && j != 0
-		&& rush->map_origin[i * size + j] == rush->map_origin[(i - 1) * size + j]
-		&& rush->map_origin[i * size + j] == rush->map_origin[i * size + j - 1]
-		&& rush->map_origin[i * size + j] == rush->map_origin[(i - 1) * size + j - 1])
+		&& r->map_origin[i * (s + 1) + j] == r->map_origin[(i - 1) * (s + 1) + j]
+		&& r->map_origin[i * (s + 1) + j] == r->map_origin[i * (s + 1) + j - 1]
+		&& r->map_origin[i * (s + 1) + j] == r->map_origin[(i - 1) * (s + 1) + j - 1])
 	{
-		if (rush->map_modif[(i - 1) * size + j] <= rush->map_modif[i * size + j - 1] &&
-			rush->map_modif[(i - 1) * size + j] <= rush->map_modif[(i - 1) * size + j - 1])
-			rush->map_modif[i * size + j] = rush->map_modif[(i - 1) * size + j] + 1;
-		else if (rush->map_modif[i * size + j - 1] <= rush->map_modif[(i - 1) * size + j - 1])
-			rush->map_modif[i * size + j] = rush->map_modif[i * size + j - 1] + 1;
+		if (r->map_modif[(i - 1) * (s + 1) + j] <= r->map_modif[i * (s + 1) + j - 1] &&
+			r->map_modif[(i - 1) * (s + 1) + j] <= r->map_modif[(i - 1) * (s + 1) + j - 1])
+			r->map_modif[i * (s + 1) + j] = r->map_modif[(i - 1) * (s + 1) + j] + 1;
+		else if (r->map_modif[i * (s + 1) + j - 1] <= r->map_modif[(i - 1) * (s + 1) + j - 1])
+			r->map_modif[i * (s + 1) + j] = r->map_modif[i * (s + 1) + j - 1] + 1;
 		else
-			rush->map_modif[i * size + j] = rush->map_modif[(i - 1) * size + j - 1] + 1;
-		if (rush->map_modif[i * size + j] > rush->max)
+			r->map_modif[i * (s + 1) + j] = r->map_modif[(i - 1) * (s + 1) + j - 1] + 1;
+		if (r->map_modif[i * (s + 1) + j] > r->max)
 		{
-			rush->max = rush->map_modif[i * size + j];
-			rush->i_max = i;
-			rush->j_max = j;
+			r->max = r->map_modif[i * (s + 1) + j];
+			r->i_max = i;
+			r->j_max = j;
 		}
 	}
 	else
-		rush->map_modif[i * size + j] = 1;
+		r->map_modif[i * (s + 1) + j] = 1;
 }
 
 // static int	check_nbr(char **map_origin, int i, int j)
@@ -96,7 +96,7 @@ static	void	place_camp(t_rush *rush, char **map_o, char c, int size)
 	{
 		j = -1;
 		while (++j < rush->max)
-			map_o[(rush->i_max - i) * size + rush->j_max - j] = c;
+			map_o[(rush->i_max - i) * (size + 1) + rush->j_max - j] = c;
 	}
 }
 
@@ -114,5 +114,7 @@ void	algo(t_rush *rush)
 	}
 	place_camp(rush, rush->map_origin, rush->c, rush->size);
 	ft_strdel_2d_char(rush->map_origin, rush->size, 1);
+	write(1, rush->map_origin, rush->size * (rush->size + 1));
+	free(rush->map_origin);
 	free(rush->map_modif);
 }

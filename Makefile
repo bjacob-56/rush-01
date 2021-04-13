@@ -4,7 +4,6 @@ INC_DIR	:= includes/
 NAME	:= rush
 SRC		:= $(SRC_DIR)algo.c \
 $(SRC_DIR)ft_atoi.c \
-$(SRC_DIR)ft_strdel_2d.c \
 $(SRC_DIR)ft_strdup.c \
 $(SRC_DIR)ft_strlen.c \
 $(SRC_DIR)ft_strncpy.c \
