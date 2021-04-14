@@ -10,14 +10,14 @@ static int	glen(char *str)
 	return (len);
 }
 
-static int	check_kept(char *to_keep, char *map)
+static int	check_kept(char *to_keep, char **line)
 {
 	char	*kept;
 	char	*tmp;
 	int		in_line;
 
 	kept = to_keep;
-	tmp = map;
+	tmp = *line;
 	in_line = 2;
 	while (*kept)
 	{
@@ -34,7 +34,7 @@ static int	check_kept(char *to_keep, char *map)
 	return (in_line);
 }
 
-static int	clean_buf(char **buf, char **to_keep, char *map, int ret)
+static int	clean_buf(char **buf, char **to_keep, char **line, int ret)
 {
 	char	*tmp;
 	char	*buffer;
@@ -42,7 +42,7 @@ static int	clean_buf(char **buf, char **to_keep, char *map, int ret)
 
 	in_line = 2;
 	buffer = *buf;
-	tmp = map + glen(map);
+	tmp = *line + glen(*line);
 	while (ret--)
 	{
 		if (*buffer == '\n' && in_line == 2)
@@ -59,40 +59,41 @@ static int	clean_buf(char **buf, char **to_keep, char *map, int ret)
 	return (in_line);
 }
 
-static int	gnl_algo(int in_line, int len, char **to_keep, char *map)
+static int	gnl_algo(int in_line, int len, char **to_keep, char **line)
 {
 	int			ret;
 	char		*buf;
 
 	while (in_line > 1)
 	{
-		buf = malloc(len + 1);
-		ret = read(0, buf, len + 1);
+		buf = malloc(len + 2);
+		ret = read(0, buf, len +1);
 		buf[ret] = '\0';
 		if (ret < 1)
 			in_line = ret;
 		else
-			in_line = clean_buf(&buf, to_keep, map, ret);
+			in_line = clean_buf(&buf, to_keep, line, ret);
 		free(buf);
 	}
 	return (in_line);
 }
 
-int	get_next_line(char *map, int len)
+int	get_next_line(char **line, int len)
 {
 	static char	*to_keep;
 	int			in_line;
 
-	*map = '\0';
+	*line = malloc(len + 2);
+	**line = '\0';
 	in_line = 2;
 	if (to_keep)
-		in_line = check_kept(to_keep, map);
+		in_line = check_kept(to_keep, line);
 	else
 	{
-		to_keep = malloc(len + 1);
+		to_keep = malloc(len + 2);
 		*to_keep = '\0';
 	}
-	in_line = gnl_algo(in_line, len, &to_keep, map);
+	in_line = gnl_algo(in_line, len, &to_keep, line);
 	if (!in_line)
 		free(to_keep);
 	return (in_line);

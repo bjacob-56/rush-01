@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:15:27 by smorel            #+#    #+#             */
-/*   Updated: 2021/04/13 22:20:33 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2021/04/13 17:06:29 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ typedef struct s_max
 	int		max;
 }	t_max;
 
-int				get_next_line(char *map, int len);
+int				get_next_line(char **line, int len);
 
 #endif
