@@ -1,17 +1,18 @@
 #include "rush01.h"
 
-static void	set_new_max(t_max *data_max, int i, int j)
+static void	set_new_max(t_max *data_max, u_int16_t i, u_int16_t j)
 {
 	data_max->i = i;
 	data_max->j = j;
 	data_max->max++;
 }
 
-static void	check_and_manage_nbr(char *o, int *m, t_max *data_max,
+static void	check_and_manage_nbr(char *o, u_int16_t *m, t_max *data_max,
 	int s)
 {
-	int	i;
-	int	j;
+	u_int16_t	i;
+	u_int16_t	j;
+	u_int32_t	sum;
 
 	i = -1;
 	while (++i < s)
@@ -19,30 +20,29 @@ static void	check_and_manage_nbr(char *o, int *m, t_max *data_max,
 		j = -1;
 		while (++j < s)
 		{
-			if (i != 0 && j != 0 && o[i * (s + 1) + j] == o[(i - 1) *(s + 1)
-					+ j] && o[i * (s + 1) + j] == o[i * (s + 1) + j - 1]
-				&& o[i * (s + 1) + j] == o[(i - 1) *(s + 1) + j - 1])
+			sum = i * s + j;
+			m[sum] = 1;
+			if (i != 0 && j != 0 && o[sum + i] == o[sum + i - s - 1] && o[sum
+					+ i] == o[sum + i - 1] && o[sum + i] == o[sum + i - s - 2])
 			{
-				m[i * s + j] = m[(i - 1) *s + j] + 1;
-				if (m[i * s + j] > m[i * s + j - 1] + 1)
-					m[i * s + j] = m[i * s + j - 1] + 1;
-				if (m[i * s + j] > m[(i - 1) *s + j - 1] + 1)
-					m[i * s + j] = m[(i - 1) *s + j - 1] + 1;
-				if (m[i * s + j] > data_max->max)
+				m[sum] = m[sum - s];
+				if (m[sum] > m[sum - 1])
+					m[sum] = m[sum - 1];
+				if (m[sum] > m[sum - s - 1])
+					m[sum] = m[sum - s - 1];
+				if (++m[sum] > data_max->max)
 					set_new_max(data_max, i, j);
 			}
-			else
-				m[i * s + j] = 1;
 		}
 	}
 }
 
-static void	algo(char *map_o, char c, int size)
+static void	algo(char *map_o, char c, u_int16_t size)
 {
-	t_max	data_max;
-	int		i;
-	int		j;
-	int		*map_m;
+	t_max		data_max;
+	u_int16_t	i;
+	u_int16_t	j;
+	u_int16_t	*map_m;
 
 	map_m = malloc(4 * size * size);
 	data_max.i = 0;
@@ -63,9 +63,9 @@ static void	algo(char *map_o, char c, int size)
 
 int	main(void)
 {
-	int		size;
-	char	buffer[2];
-	char	*map_o;
+	u_int16_t	size;
+	char		buffer[2];
+	char		*map_o;
 
 	size = 0;
 	read(0, buffer, 1);

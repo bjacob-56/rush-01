@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:15:27 by smorel            #+#    #+#             */
-/*   Updated: 2021/04/14 12:21:15 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 15:51:31 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 typedef struct s_max
 {
-	int		i;
-	int		j;
-	int		max;
+	u_int16_t	i;
+	u_int16_t	j;
+	u_int16_t	max;
 }	t_max;
 
 #endif
