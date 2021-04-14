@@ -1,5 +1,23 @@
 #include "rush01.h"
 
+static void	read_map(char *map_o, int size)
+{
+	int		i;
+	int		j;
+	char	*buf;
+
+	buf = malloc(size + 2);
+	i = -1;
+	while (++i < size)
+	{
+		read(0, buf, size + 1);
+		j = -1;
+		while (++j < size + 1)
+			map_o[i * (size + 1) + j] = buf[j];
+	}
+	free(buf);
+}
+
 static void	set_new_max(t_max *data_max, int i, int j)
 {
 	data_max->i = i;
@@ -7,7 +25,7 @@ static void	set_new_max(t_max *data_max, int i, int j)
 	data_max->max++;
 }
 
-static void	check_and_manage_nbr(char **o, int *m, t_max *data_max,
+static void	check_and_manage_nbr(char *o, int *m, t_max *data_max,
 	int s)
 {
 	int	i;
@@ -19,8 +37,9 @@ static void	check_and_manage_nbr(char **o, int *m, t_max *data_max,
 		j = -1;
 		while (++j < s)
 		{
-			if (i != 0 && j != 0 && o[i][j] == o[i - 1][j] &&
-				o[i][j] == o[i][j - 1] && o[i][j] == o[i - 1][j - 1])
+			if (i != 0 && j != 0 && o[i * (s + 1) + j] == o[(i - 1) *(s + 1)
+					+ j] && o[i * (s + 1) + j] == o[i * (s + 1) + j - 1]
+				&& o[i * (s + 1) + j] == o[(i - 1) *(s + 1) + j - 1])
 			{
 				m[i * s + j] = m[(i - 1) *s + j] + 1;
 				if (m[i * s + j] > m[i * s + j - 1] + 1)
@@ -36,28 +55,11 @@ static void	check_and_manage_nbr(char **o, int *m, t_max *data_max,
 	}
 }
 
-static void	place_camp(char **map_o, t_max *data_max, char c, int max)
-{
-	int	i;
-	int	j;
-	int	i_max;
-	int	j_max;
-
-	i_max = data_max->i;
-	j_max = data_max->j;
-	i = -1;
-	while (++i < max)
-	{
-		j = -1;
-		while (++j < max)
-			map_o[i_max - i][j_max - j] = c;
-	}
-}
-
-static void	algo(char **map_o, char c, int size)
+static void	algo(char *map_o, char c, int size)
 {
 	t_max	data_max;
 	int		i;
+	int		j;
 	int		*map_m;
 
 	map_m = malloc(4 * size * size);
@@ -65,13 +67,14 @@ static void	algo(char **map_o, char c, int size)
 	data_max.j = 0;
 	data_max.max = 1;
 	check_and_manage_nbr(map_o, map_m, &data_max, size);
-	place_camp(map_o, &data_max, c, data_max.max);
 	i = -1;
-	while (++i < size)
+	while (++i < data_max.max)
 	{
-		write(1, map_o[i], size + 1);
-		free(map_o[i]);
+		j = -1;
+		while (++j < data_max.max)
+			map_o[(data_max.i - i) *(size + 1) + data_max.j - j] = c;
 	}
+	write(1, map_o, size * (size + 1));
 	free(map_o);
 	free(map_m);
 }
@@ -80,8 +83,7 @@ int	main(void)
 {
 	int		size;
 	char	buffer[2];
-	char	**map_o;
-	int		i;
+	char	*map_o;
 
 	size = 0;
 	read(0, buffer, 1);
@@ -91,10 +93,8 @@ int	main(void)
 		read(0, buffer, 1);
 	}
 	read(0, &buffer, 2);
-	map_o = malloc(sizeof(char *) * size);
-	i = -1;
-	while (++i < size)
-		get_next_line(map_o + i, size);
+	map_o = malloc(size * (size + 1) + 1);
+	read_map(map_o, size);
 	algo(map_o, buffer[0], size);
 	return (0);
 }
