@@ -1,23 +1,5 @@
 #include "rush01.h"
 
-static void	read_map(char *map_o, int size)
-{
-	int		i;
-	int		j;
-	char	*buf;
-
-	buf = malloc(size + 2);
-	i = -1;
-	while (++i < size)
-	{
-		read(0, buf, size + 1);
-		j = -1;
-		while (++j < size + 1)
-			map_o[i * (size + 1) + j] = buf[j];
-	}
-	free(buf);
-}
-
 static void	set_new_max(t_max *data_max, int i, int j)
 {
 	data_max->i = i;
@@ -92,9 +74,9 @@ int	main(void)
 		size = 10 * size + (buffer[0] - '0');
 		read(0, buffer, 1);
 	}
-	read(0, &buffer, 2);
-	map_o = malloc(size * (size + 1) + 1);
-	read_map(map_o, size);
+	read(0, buffer, 2);
+	map_o = malloc(sizeof(char) * (size * (size + 1) + 1));
+	read(0, map_o, size * (size + 1));
 	algo(map_o, buffer[0], size);
 	return (0);
 }
